@@ -1,0 +1,27 @@
+{
+  "id": "solarized-light",
+  "name": "Solarized Light",
+  "base": "light",
+  "tokens": {
+    "bg": "#FDF6E3",
+    "sidebar": "#EEE8D5",
+    "text": "#475B62",
+    "textMuted": "#566A71",
+    "border": "#D9D2BC",
+    "accent": "#1C659E",
+    "codeBg": "#F3ECD8",
+    "hover": "#E4DDC8",
+    "colors": {
+      "gray": "#566A71",
+      "brown": "#7E5C3A",
+      "orange": "#A84512",
+      "yellow": "#7D6200",
+      "green": "#5A6C00",
+      "teal": "#1A716B",
+      "blue": "#1C659E",
+      "purple": "#5A60B0",
+      "pink": "#B8227A",
+      "red": "#C52A27"
+    }
+  }
+}

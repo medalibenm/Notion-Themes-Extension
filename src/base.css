@@ -1,0 +1,707 @@
+/*
+ * ALL Notion-specific names live in this file.
+ *
+ * Notion paints its UI from design tokens (--c-*, --ca-*, --cd-*, --cl-*)
+ * declared on `:root, .notion-light-theme` and on `.notion-dark-theme`, and its
+ * inline styles reference them too. So remapping tokens onto --tint-* covers most
+ * of the UI; the selector rules at the bottom are fallbacks for what tokens miss.
+ *
+ * Every rule is scoped to html[data-tint]: without that attribute this file does
+ * nothing, which is how the extension turns off.
+ *
+ * The theme class also sits on nested elements (.notion-app-inner), which is why
+ * the tokens must be redeclared there rather than only on <html>.
+ */
+
+/* ---------- Tokens: text and icons ---------- */
+html[data-tint],
+html[data-tint] .notion-light-theme,
+html[data-tint] .notion-dark-theme {
+  --c-texPri: var(--tint-text);
+  --c-texSec: var(--tint-text-muted);
+  --c-texTer: color-mix(in srgb, var(--tint-text-muted) 75%, var(--tint-bg));
+  --c-texDis: color-mix(in srgb, var(--tint-text-muted) 50%, var(--tint-bg));
+  --c-texAccPri: var(--tint-accent);
+  --c-texInvPri: var(--tint-bg);
+  --c-texInvSec: color-mix(in srgb, var(--tint-bg) 75%, var(--tint-text));
+
+  --c-icoPri: var(--tint-text);
+  --c-icoSec: var(--tint-text-muted);
+  --c-icoTer: color-mix(in srgb, var(--tint-text-muted) 75%, var(--tint-bg));
+  --c-icoDis: color-mix(in srgb, var(--tint-text-muted) 50%, var(--tint-bg));
+  --c-icoAccPri: var(--tint-accent);
+  --c-icoInvPri: var(--tint-bg);
+  --c-icoInvSec: color-mix(in srgb, var(--tint-bg) 75%, var(--tint-text));
+
+  --c-regEmoCol: var(--tint-text);
+  --c-sidSecCol: var(--tint-text-muted);
+  --c-palGra800: var(--tint-text);
+
+  --ca-texDisTra: color-mix(in srgb, var(--tint-text) 30%, transparent);
+  --ca-opaLinDecCol: color-mix(in srgb, var(--tint-text) 40%, transparent);
+  --cl-linDecCol: color-mix(in srgb, var(--tint-text) 30%, transparent);
+  --cl-pagTitPlaTexCol: color-mix(in srgb, var(--tint-text) 25%, transparent);
+}
+
+/* ---------- Tokens: surfaces ---------- */
+html[data-tint],
+html[data-tint] .notion-light-theme,
+html[data-tint] .notion-dark-theme {
+  --c-bacPri: var(--tint-bg);
+  --c-bacSec: var(--tint-sidebar);
+  --c-bacTer: var(--tint-hover);
+  --c-bacEle: var(--tint-sidebar);
+  --c-bacInt: var(--tint-hover);
+  --c-bacAccPri: var(--tint-accent);
+  --c-bacAccSec: color-mix(in srgb, var(--tint-accent) 80%, var(--tint-bg));
+  --c-popBac: var(--tint-sidebar);
+  --c-calIteBac: var(--tint-sidebar);
+  --c-timBac: var(--tint-bg);
+  --c-peeTimBac: var(--tint-bg);
+  --c-whiButBac: var(--tint-sidebar);
+  --c-whiButHovBac: var(--tint-hover);
+  --c-whiButPreBac: var(--tint-hover);
+
+  --cd-boaIteDefBac: var(--tint-sidebar);
+  --cd-colGalPreCarBac: var(--tint-sidebar);
+  --cd-tabHeaRowColBac: var(--tint-sidebar);
+  --cd-timDarBac: var(--tint-sidebar);
+  --cd-homCarBacBas: var(--tint-sidebar);
+  --cd-homCarBacHov: var(--tint-hover);
+  --cd-homCarTemCarBacBas: var(--tint-sidebar);
+  --cd-homCarTemCarBacHov: var(--tint-hover);
+
+  --ca-glaPag: color-mix(in srgb, var(--tint-bg) 80%, transparent);
+  --ca-glaWas: color-mix(in srgb, var(--tint-sidebar) 80%, transparent);
+  --ca-popWaxPapBac: color-mix(in srgb, var(--tint-bg) 90%, transparent);
+  --ca-homTilBac: color-mix(in srgb, var(--tint-bg) 90%, transparent);
+}
+
+/* ---------- Tokens: code ---------- */
+html[data-tint],
+html[data-tint] .notion-light-theme,
+html[data-tint] .notion-dark-theme {
+  --c-codStiBloBac: var(--tint-code-bg);
+  --cd-codBloBac: var(--tint-code-bg);
+  --cd-embPlaBac: var(--tint-code-bg);
+}
+
+/* ---------- Tokens: borders ---------- */
+html[data-tint],
+html[data-tint] .notion-light-theme,
+html[data-tint] .notion-dark-theme {
+  --c-borPri: var(--tint-border);
+  --c-borSec: color-mix(in srgb, var(--tint-border) 60%, var(--tint-bg));
+  --c-borStr: color-mix(in srgb, var(--tint-border) 70%, var(--tint-text));
+  --c-borAccPri: var(--tint-accent);
+  --c-borInvPri: var(--tint-bg);
+
+  --ca-borPriTra: color-mix(in srgb, var(--tint-text) 14%, transparent);
+  --ca-borSecTra: color-mix(in srgb, var(--tint-text) 8%, transparent);
+  --ca-borStrTra: color-mix(in srgb, var(--tint-text) 22%, transparent);
+}
+
+/* ---------- Tokens: hover and pressed overlays ---------- */
+html[data-tint],
+html[data-tint] .notion-light-theme,
+html[data-tint] .notion-dark-theme {
+  --ca-bacSecTra: color-mix(in srgb, var(--tint-text) 4%, transparent);
+  --ca-bacTerTra: color-mix(in srgb, var(--tint-text) 8%, transparent);
+  --ca-bacIntTra: color-mix(in srgb, var(--tint-text) 6%, transparent);
+  --ca-butHovBac: color-mix(in srgb, var(--tint-text) 8%, transparent);
+  --ca-butPreBac: color-mix(in srgb, var(--tint-text) 16%, transparent);
+  --ca-butPreBacLig: color-mix(in srgb, var(--tint-text) 12%, transparent);
+  --ca-outButHovBac: color-mix(in srgb, var(--tint-text) 8%, transparent);
+  --ca-ligGraButHovBac: color-mix(in srgb, var(--tint-text) 8%, transparent);
+  --ca-ligGraButPreBac: color-mix(in srgb, var(--tint-text) 14%, transparent);
+  --ca-staHov: color-mix(in srgb, var(--tint-text) 6%, transparent);
+  --ca-staPre: color-mix(in srgb, var(--tint-text) 12%, transparent);
+  --ca-tabRowHovBac: color-mix(in srgb, var(--tint-text) 3%, transparent);
+  --ca-calEveHovBac: color-mix(in srgb, var(--tint-text) 3%, transparent);
+  --ca-sidIteSelBac: color-mix(in srgb, var(--tint-text) 6%, transparent);
+  --ca-sidSecBac: color-mix(in srgb, var(--tint-text) 3%, transparent);
+  --cl-hovDisBac: color-mix(in srgb, var(--tint-text) 4%, transparent);
+  --cl-carHovBac: color-mix(in srgb, var(--tint-text) 5%, transparent);
+  --cl-carPreBac: color-mix(in srgb, var(--tint-text) 8%, transparent);
+  --cl-outButPreBac: color-mix(in srgb, var(--tint-text) 16%, transparent);
+}
+
+/* Notion's named colors. Each family uses one formula, so a theme only supplies
+ * one hex per color. Mixing with the theme's own bg and text keeps shades readable
+ * on light and dark themes alike. Blue's accent tokens are overridden further down. */
+
+/* ---------- Tokens: gray ---------- */
+html[data-tint],
+html[data-tint] .notion-light-theme,
+html[data-tint] .notion-dark-theme {
+  --c-graTexPri: color-mix(in srgb, var(--tint-gray) 45%, var(--tint-text));
+  --c-graTexSec: var(--tint-gray);
+  --c-graTexTer: color-mix(in srgb, var(--tint-gray) 70%, var(--tint-bg));
+  --c-graTexDis: color-mix(in srgb, var(--tint-gray) 45%, var(--tint-bg));
+  --c-graTexAccPri: var(--tint-gray);
+  --c-graTexInvPri: var(--tint-bg);
+  --c-graTexInvSec: color-mix(in srgb, var(--tint-bg) 70%, var(--tint-gray));
+  --c-graIcoPri: color-mix(in srgb, var(--tint-gray) 45%, var(--tint-text));
+  --c-graIcoSec: var(--tint-gray);
+  --c-graIcoTer: color-mix(in srgb, var(--tint-gray) 70%, var(--tint-bg));
+  --c-graIcoDis: color-mix(in srgb, var(--tint-gray) 45%, var(--tint-bg));
+  --c-graIcoAccPri: var(--tint-gray);
+  --c-graIcoInvPri: var(--tint-bg);
+  --c-graIcoInvSec: color-mix(in srgb, var(--tint-bg) 70%, var(--tint-gray));
+  --c-graBorPri: color-mix(in srgb, var(--tint-gray) 30%, var(--tint-bg));
+  --c-graBorSec: color-mix(in srgb, var(--tint-gray) 20%, var(--tint-bg));
+  --c-graBorInvPri: color-mix(in srgb, var(--tint-gray) 60%, var(--tint-bg));
+  --c-graBorAccPri: var(--tint-gray);
+  --c-graBorStr: color-mix(in srgb, var(--tint-gray) 45%, var(--tint-bg));
+  --c-graBacPri: color-mix(in srgb, var(--tint-gray) 8%, var(--tint-bg));
+  --c-graBacSec: color-mix(in srgb, var(--tint-gray) 20%, var(--tint-bg));
+  --c-graBacTer: color-mix(in srgb, var(--tint-gray) 35%, var(--tint-bg));
+  --c-graBacEle: color-mix(in srgb, var(--tint-gray) 14%, var(--tint-bg));
+  --c-graBacAccPri: var(--tint-gray);
+  --c-graBacAccSec: color-mix(in srgb, var(--tint-gray) 80%, var(--tint-bg));
+  --c-graBacInt: color-mix(in srgb, var(--tint-gray) 12%, var(--tint-bg));
+  --ca-graTexDisTra: color-mix(in srgb, var(--tint-gray) 40%, transparent);
+  --ca-graBorPriTra: color-mix(in srgb, var(--tint-gray) 25%, transparent);
+  --ca-graBorSecTra: color-mix(in srgb, var(--tint-gray) 15%, transparent);
+  --ca-graBorStrTra: color-mix(in srgb, var(--tint-gray) 45%, transparent);
+  --ca-graBacPriTra: color-mix(in srgb, var(--tint-gray) 6%, transparent);
+  --ca-graBacSecTra: color-mix(in srgb, var(--tint-gray) 18%, transparent);
+  --ca-graBacTerTra: color-mix(in srgb, var(--tint-gray) 35%, transparent);
+  --ca-graBacIntTra: color-mix(in srgb, var(--tint-gray) 10%, transparent);
+}
+
+/* ---------- Tokens: brown ---------- */
+html[data-tint],
+html[data-tint] .notion-light-theme,
+html[data-tint] .notion-dark-theme {
+  --c-broTexPri: color-mix(in srgb, var(--tint-brown) 45%, var(--tint-text));
+  --c-broTexSec: var(--tint-brown);
+  --c-broTexTer: color-mix(in srgb, var(--tint-brown) 70%, var(--tint-bg));
+  --c-broTexDis: color-mix(in srgb, var(--tint-brown) 45%, var(--tint-bg));
+  --c-broTexAccPri: var(--tint-brown);
+  --c-broTexInvPri: var(--tint-bg);
+  --c-broTexInvSec: color-mix(in srgb, var(--tint-bg) 70%, var(--tint-brown));
+  --c-broIcoPri: color-mix(in srgb, var(--tint-brown) 45%, var(--tint-text));
+  --c-broIcoSec: var(--tint-brown);
+  --c-broIcoTer: color-mix(in srgb, var(--tint-brown) 70%, var(--tint-bg));
+  --c-broIcoDis: color-mix(in srgb, var(--tint-brown) 45%, var(--tint-bg));
+  --c-broIcoAccPri: var(--tint-brown);
+  --c-broIcoInvPri: var(--tint-bg);
+  --c-broIcoInvSec: color-mix(in srgb, var(--tint-bg) 70%, var(--tint-brown));
+  --c-broBorPri: color-mix(in srgb, var(--tint-brown) 30%, var(--tint-bg));
+  --c-broBorSec: color-mix(in srgb, var(--tint-brown) 20%, var(--tint-bg));
+  --c-broBorInvPri: color-mix(in srgb, var(--tint-brown) 60%, var(--tint-bg));
+  --c-broBorAccPri: var(--tint-brown);
+  --c-broBorStr: color-mix(in srgb, var(--tint-brown) 45%, var(--tint-bg));
+  --c-broBacPri: color-mix(in srgb, var(--tint-brown) 8%, var(--tint-bg));
+  --c-broBacSec: color-mix(in srgb, var(--tint-brown) 20%, var(--tint-bg));
+  --c-broBacTer: color-mix(in srgb, var(--tint-brown) 35%, var(--tint-bg));
+  --c-broBacEle: color-mix(in srgb, var(--tint-brown) 14%, var(--tint-bg));
+  --c-broBacAccPri: var(--tint-brown);
+  --c-broBacAccSec: color-mix(in srgb, var(--tint-brown) 80%, var(--tint-bg));
+  --c-broBacInt: color-mix(in srgb, var(--tint-brown) 12%, var(--tint-bg));
+  --ca-broTexDisTra: color-mix(in srgb, var(--tint-brown) 40%, transparent);
+  --ca-broBorPriTra: color-mix(in srgb, var(--tint-brown) 25%, transparent);
+  --ca-broBorSecTra: color-mix(in srgb, var(--tint-brown) 15%, transparent);
+  --ca-broBorStrTra: color-mix(in srgb, var(--tint-brown) 45%, transparent);
+  --ca-broBacPriTra: color-mix(in srgb, var(--tint-brown) 6%, transparent);
+  --ca-broBacSecTra: color-mix(in srgb, var(--tint-brown) 18%, transparent);
+  --ca-broBacTerTra: color-mix(in srgb, var(--tint-brown) 35%, transparent);
+  --ca-broBacIntTra: color-mix(in srgb, var(--tint-brown) 10%, transparent);
+}
+
+/* ---------- Tokens: orange ---------- */
+html[data-tint],
+html[data-tint] .notion-light-theme,
+html[data-tint] .notion-dark-theme {
+  --c-oraTexPri: color-mix(in srgb, var(--tint-orange) 45%, var(--tint-text));
+  --c-oraTexSec: var(--tint-orange);
+  --c-oraTexTer: color-mix(in srgb, var(--tint-orange) 70%, var(--tint-bg));
+  --c-oraTexDis: color-mix(in srgb, var(--tint-orange) 45%, var(--tint-bg));
+  --c-oraTexAccPri: var(--tint-orange);
+  --c-oraTexInvPri: var(--tint-bg);
+  --c-oraTexInvSec: color-mix(in srgb, var(--tint-bg) 70%, var(--tint-orange));
+  --c-oraIcoPri: color-mix(in srgb, var(--tint-orange) 45%, var(--tint-text));
+  --c-oraIcoSec: var(--tint-orange);
+  --c-oraIcoTer: color-mix(in srgb, var(--tint-orange) 70%, var(--tint-bg));
+  --c-oraIcoDis: color-mix(in srgb, var(--tint-orange) 45%, var(--tint-bg));
+  --c-oraIcoAccPri: var(--tint-orange);
+  --c-oraIcoInvPri: var(--tint-bg);
+  --c-oraIcoInvSec: color-mix(in srgb, var(--tint-bg) 70%, var(--tint-orange));
+  --c-oraBorPri: color-mix(in srgb, var(--tint-orange) 30%, var(--tint-bg));
+  --c-oraBorSec: color-mix(in srgb, var(--tint-orange) 20%, var(--tint-bg));
+  --c-oraBorInvPri: color-mix(in srgb, var(--tint-orange) 60%, var(--tint-bg));
+  --c-oraBorAccPri: var(--tint-orange);
+  --c-oraBorStr: color-mix(in srgb, var(--tint-orange) 45%, var(--tint-bg));
+  --c-oraBacPri: color-mix(in srgb, var(--tint-orange) 8%, var(--tint-bg));
+  --c-oraBacSec: color-mix(in srgb, var(--tint-orange) 20%, var(--tint-bg));
+  --c-oraBacTer: color-mix(in srgb, var(--tint-orange) 35%, var(--tint-bg));
+  --c-oraBacEle: color-mix(in srgb, var(--tint-orange) 14%, var(--tint-bg));
+  --c-oraBacAccPri: var(--tint-orange);
+  --c-oraBacAccSec: color-mix(in srgb, var(--tint-orange) 80%, var(--tint-bg));
+  --c-oraBacInt: color-mix(in srgb, var(--tint-orange) 12%, var(--tint-bg));
+  --ca-oraTexDisTra: color-mix(in srgb, var(--tint-orange) 40%, transparent);
+  --ca-oraBorPriTra: color-mix(in srgb, var(--tint-orange) 25%, transparent);
+  --ca-oraBorSecTra: color-mix(in srgb, var(--tint-orange) 15%, transparent);
+  --ca-oraBorStrTra: color-mix(in srgb, var(--tint-orange) 45%, transparent);
+  --ca-oraBacPriTra: color-mix(in srgb, var(--tint-orange) 6%, transparent);
+  --ca-oraBacSecTra: color-mix(in srgb, var(--tint-orange) 18%, transparent);
+  --ca-oraBacTerTra: color-mix(in srgb, var(--tint-orange) 35%, transparent);
+  --ca-oraBacIntTra: color-mix(in srgb, var(--tint-orange) 10%, transparent);
+}
+
+/* ---------- Tokens: yellow ---------- */
+html[data-tint],
+html[data-tint] .notion-light-theme,
+html[data-tint] .notion-dark-theme {
+  --c-yelTexPri: color-mix(in srgb, var(--tint-yellow) 45%, var(--tint-text));
+  --c-yelTexSec: var(--tint-yellow);
+  --c-yelTexTer: color-mix(in srgb, var(--tint-yellow) 70%, var(--tint-bg));
+  --c-yelTexDis: color-mix(in srgb, var(--tint-yellow) 45%, var(--tint-bg));
+  --c-yelTexAccPri: var(--tint-yellow);
+  --c-yelTexInvPri: var(--tint-bg);
+  --c-yelTexInvSec: color-mix(in srgb, var(--tint-bg) 70%, var(--tint-yellow));
+  --c-yelIcoPri: color-mix(in srgb, var(--tint-yellow) 45%, var(--tint-text));
+  --c-yelIcoSec: var(--tint-yellow);
+  --c-yelIcoTer: color-mix(in srgb, var(--tint-yellow) 70%, var(--tint-bg));
+  --c-yelIcoDis: color-mix(in srgb, var(--tint-yellow) 45%, var(--tint-bg));
+  --c-yelIcoAccPri: var(--tint-yellow);
+  --c-yelIcoInvPri: var(--tint-bg);
+  --c-yelIcoInvSec: color-mix(in srgb, var(--tint-bg) 70%, var(--tint-yellow));
+  --c-yelBorPri: color-mix(in srgb, var(--tint-yellow) 30%, var(--tint-bg));
+  --c-yelBorSec: color-mix(in srgb, var(--tint-yellow) 20%, var(--tint-bg));
+  --c-yelBorInvPri: color-mix(in srgb, var(--tint-yellow) 60%, var(--tint-bg));
+  --c-yelBorAccPri: var(--tint-yellow);
+  --c-yelBorStr: color-mix(in srgb, var(--tint-yellow) 45%, var(--tint-bg));
+  --c-yelBacPri: color-mix(in srgb, var(--tint-yellow) 8%, var(--tint-bg));
+  --c-yelBacSec: color-mix(in srgb, var(--tint-yellow) 20%, var(--tint-bg));
+  --c-yelBacTer: color-mix(in srgb, var(--tint-yellow) 35%, var(--tint-bg));
+  --c-yelBacEle: color-mix(in srgb, var(--tint-yellow) 14%, var(--tint-bg));
+  --c-yelBacAccPri: var(--tint-yellow);
+  --c-yelBacAccSec: color-mix(in srgb, var(--tint-yellow) 80%, var(--tint-bg));
+  --c-yelBacInt: color-mix(in srgb, var(--tint-yellow) 12%, var(--tint-bg));
+  --ca-yelTexDisTra: color-mix(in srgb, var(--tint-yellow) 40%, transparent);
+  --ca-yelBorPriTra: color-mix(in srgb, var(--tint-yellow) 25%, transparent);
+  --ca-yelBorSecTra: color-mix(in srgb, var(--tint-yellow) 15%, transparent);
+  --ca-yelBorStrTra: color-mix(in srgb, var(--tint-yellow) 45%, transparent);
+  --ca-yelBacPriTra: color-mix(in srgb, var(--tint-yellow) 6%, transparent);
+  --ca-yelBacSecTra: color-mix(in srgb, var(--tint-yellow) 18%, transparent);
+  --ca-yelBacTerTra: color-mix(in srgb, var(--tint-yellow) 35%, transparent);
+  --ca-yelBacIntTra: color-mix(in srgb, var(--tint-yellow) 10%, transparent);
+}
+
+/* ---------- Tokens: green ---------- */
+html[data-tint],
+html[data-tint] .notion-light-theme,
+html[data-tint] .notion-dark-theme {
+  --c-greTexPri: color-mix(in srgb, var(--tint-green) 45%, var(--tint-text));
+  --c-greTexSec: var(--tint-green);
+  --c-greTexTer: color-mix(in srgb, var(--tint-green) 70%, var(--tint-bg));
+  --c-greTexDis: color-mix(in srgb, var(--tint-green) 45%, var(--tint-bg));
+  --c-greTexAccPri: var(--tint-green);
+  --c-greTexInvPri: var(--tint-bg);
+  --c-greTexInvSec: color-mix(in srgb, var(--tint-bg) 70%, var(--tint-green));
+  --c-greIcoPri: color-mix(in srgb, var(--tint-green) 45%, var(--tint-text));
+  --c-greIcoSec: var(--tint-green);
+  --c-greIcoTer: color-mix(in srgb, var(--tint-green) 70%, var(--tint-bg));
+  --c-greIcoDis: color-mix(in srgb, var(--tint-green) 45%, var(--tint-bg));
+  --c-greIcoAccPri: var(--tint-green);
+  --c-greIcoInvPri: var(--tint-bg);
+  --c-greIcoInvSec: color-mix(in srgb, var(--tint-bg) 70%, var(--tint-green));
+  --c-greBorPri: color-mix(in srgb, var(--tint-green) 30%, var(--tint-bg));
+  --c-greBorSec: color-mix(in srgb, var(--tint-green) 20%, var(--tint-bg));
+  --c-greBorInvPri: color-mix(in srgb, var(--tint-green) 60%, var(--tint-bg));
+  --c-greBorAccPri: var(--tint-green);
+  --c-greBorStr: color-mix(in srgb, var(--tint-green) 45%, var(--tint-bg));
+  --c-greBacPri: color-mix(in srgb, var(--tint-green) 8%, var(--tint-bg));
+  --c-greBacSec: color-mix(in srgb, var(--tint-green) 20%, var(--tint-bg));
+  --c-greBacTer: color-mix(in srgb, var(--tint-green) 35%, var(--tint-bg));
+  --c-greBacEle: color-mix(in srgb, var(--tint-green) 14%, var(--tint-bg));
+  --c-greBacAccPri: var(--tint-green);
+  --c-greBacAccSec: color-mix(in srgb, var(--tint-green) 80%, var(--tint-bg));
+  --c-greBacInt: color-mix(in srgb, var(--tint-green) 12%, var(--tint-bg));
+  --ca-greTexDisTra: color-mix(in srgb, var(--tint-green) 40%, transparent);
+  --ca-greBorPriTra: color-mix(in srgb, var(--tint-green) 25%, transparent);
+  --ca-greBorSecTra: color-mix(in srgb, var(--tint-green) 15%, transparent);
+  --ca-greBorStrTra: color-mix(in srgb, var(--tint-green) 45%, transparent);
+  --ca-greBacPriTra: color-mix(in srgb, var(--tint-green) 6%, transparent);
+  --ca-greBacSecTra: color-mix(in srgb, var(--tint-green) 18%, transparent);
+  --ca-greBacTerTra: color-mix(in srgb, var(--tint-green) 35%, transparent);
+  --ca-greBacIntTra: color-mix(in srgb, var(--tint-green) 10%, transparent);
+}
+
+/* ---------- Tokens: teal ---------- */
+html[data-tint],
+html[data-tint] .notion-light-theme,
+html[data-tint] .notion-dark-theme {
+  --c-teaTexPri: color-mix(in srgb, var(--tint-teal) 45%, var(--tint-text));
+  --c-teaTexSec: var(--tint-teal);
+  --c-teaTexTer: color-mix(in srgb, var(--tint-teal) 70%, var(--tint-bg));
+  --c-teaTexDis: color-mix(in srgb, var(--tint-teal) 45%, var(--tint-bg));
+  --c-teaTexAccPri: var(--tint-teal);
+  --c-teaTexInvPri: var(--tint-bg);
+  --c-teaTexInvSec: color-mix(in srgb, var(--tint-bg) 70%, var(--tint-teal));
+  --c-teaIcoPri: color-mix(in srgb, var(--tint-teal) 45%, var(--tint-text));
+  --c-teaIcoSec: var(--tint-teal);
+  --c-teaIcoTer: color-mix(in srgb, var(--tint-teal) 70%, var(--tint-bg));
+  --c-teaIcoDis: color-mix(in srgb, var(--tint-teal) 45%, var(--tint-bg));
+  --c-teaIcoAccPri: var(--tint-teal);
+  --c-teaIcoInvPri: var(--tint-bg);
+  --c-teaIcoInvSec: color-mix(in srgb, var(--tint-bg) 70%, var(--tint-teal));
+  --c-teaBorPri: color-mix(in srgb, var(--tint-teal) 30%, var(--tint-bg));
+  --c-teaBorSec: color-mix(in srgb, var(--tint-teal) 20%, var(--tint-bg));
+  --c-teaBorInvPri: color-mix(in srgb, var(--tint-teal) 60%, var(--tint-bg));
+  --c-teaBorAccPri: var(--tint-teal);
+  --c-teaBorStr: color-mix(in srgb, var(--tint-teal) 45%, var(--tint-bg));
+  --c-teaBacPri: color-mix(in srgb, var(--tint-teal) 8%, var(--tint-bg));
+  --c-teaBacSec: color-mix(in srgb, var(--tint-teal) 20%, var(--tint-bg));
+  --c-teaBacTer: color-mix(in srgb, var(--tint-teal) 35%, var(--tint-bg));
+  --c-teaBacEle: color-mix(in srgb, var(--tint-teal) 14%, var(--tint-bg));
+  --c-teaBacAccPri: var(--tint-teal);
+  --c-teaBacAccSec: color-mix(in srgb, var(--tint-teal) 80%, var(--tint-bg));
+  --c-teaBacInt: color-mix(in srgb, var(--tint-teal) 12%, var(--tint-bg));
+  --ca-teaTexDisTra: color-mix(in srgb, var(--tint-teal) 40%, transparent);
+  --ca-teaBorPriTra: color-mix(in srgb, var(--tint-teal) 25%, transparent);
+  --ca-teaBorSecTra: color-mix(in srgb, var(--tint-teal) 15%, transparent);
+  --ca-teaBorStrTra: color-mix(in srgb, var(--tint-teal) 45%, transparent);
+  --ca-teaBacPriTra: color-mix(in srgb, var(--tint-teal) 6%, transparent);
+  --ca-teaBacSecTra: color-mix(in srgb, var(--tint-teal) 18%, transparent);
+  --ca-teaBacTerTra: color-mix(in srgb, var(--tint-teal) 35%, transparent);
+  --ca-teaBacIntTra: color-mix(in srgb, var(--tint-teal) 10%, transparent);
+}
+
+/* ---------- Tokens: blue ---------- */
+html[data-tint],
+html[data-tint] .notion-light-theme,
+html[data-tint] .notion-dark-theme {
+  --c-bluTexPri: color-mix(in srgb, var(--tint-blue) 45%, var(--tint-text));
+  --c-bluTexSec: var(--tint-blue);
+  --c-bluTexTer: color-mix(in srgb, var(--tint-blue) 70%, var(--tint-bg));
+  --c-bluTexDis: color-mix(in srgb, var(--tint-blue) 45%, var(--tint-bg));
+  --c-bluTexAccPri: var(--tint-blue);
+  --c-bluTexInvPri: var(--tint-bg);
+  --c-bluTexInvSec: color-mix(in srgb, var(--tint-bg) 70%, var(--tint-blue));
+  --c-bluIcoPri: color-mix(in srgb, var(--tint-blue) 45%, var(--tint-text));
+  --c-bluIcoSec: var(--tint-blue);
+  --c-bluIcoTer: color-mix(in srgb, var(--tint-blue) 70%, var(--tint-bg));
+  --c-bluIcoDis: color-mix(in srgb, var(--tint-blue) 45%, var(--tint-bg));
+  --c-bluIcoAccPri: var(--tint-blue);
+  --c-bluIcoInvPri: var(--tint-bg);
+  --c-bluIcoInvSec: color-mix(in srgb, var(--tint-bg) 70%, var(--tint-blue));
+  --c-bluBorPri: color-mix(in srgb, var(--tint-blue) 30%, var(--tint-bg));
+  --c-bluBorSec: color-mix(in srgb, var(--tint-blue) 20%, var(--tint-bg));
+  --c-bluBorInvPri: color-mix(in srgb, var(--tint-blue) 60%, var(--tint-bg));
+  --c-bluBorAccPri: var(--tint-blue);
+  --c-bluBorStr: color-mix(in srgb, var(--tint-blue) 45%, var(--tint-bg));
+  --c-bluBacPri: color-mix(in srgb, var(--tint-blue) 8%, var(--tint-bg));
+  --c-bluBacSec: color-mix(in srgb, var(--tint-blue) 20%, var(--tint-bg));
+  --c-bluBacTer: color-mix(in srgb, var(--tint-blue) 35%, var(--tint-bg));
+  --c-bluBacEle: color-mix(in srgb, var(--tint-blue) 14%, var(--tint-bg));
+  --c-bluBacAccPri: var(--tint-blue);
+  --c-bluBacAccSec: color-mix(in srgb, var(--tint-blue) 80%, var(--tint-bg));
+  --c-bluBacInt: color-mix(in srgb, var(--tint-blue) 12%, var(--tint-bg));
+  --ca-bluTexDisTra: color-mix(in srgb, var(--tint-blue) 40%, transparent);
+  --ca-bluBorPriTra: color-mix(in srgb, var(--tint-blue) 25%, transparent);
+  --ca-bluBorSecTra: color-mix(in srgb, var(--tint-blue) 15%, transparent);
+  --ca-bluBorStrTra: color-mix(in srgb, var(--tint-blue) 45%, transparent);
+  --ca-bluBacPriTra: color-mix(in srgb, var(--tint-blue) 6%, transparent);
+  --ca-bluBacSecTra: color-mix(in srgb, var(--tint-blue) 18%, transparent);
+  --ca-bluBacTerTra: color-mix(in srgb, var(--tint-blue) 35%, transparent);
+  --ca-bluBacIntTra: color-mix(in srgb, var(--tint-blue) 10%, transparent);
+}
+
+/* ---------- Tokens: purple ---------- */
+html[data-tint],
+html[data-tint] .notion-light-theme,
+html[data-tint] .notion-dark-theme {
+  --c-purTexPri: color-mix(in srgb, var(--tint-purple) 45%, var(--tint-text));
+  --c-purTexSec: var(--tint-purple);
+  --c-purTexTer: color-mix(in srgb, var(--tint-purple) 70%, var(--tint-bg));
+  --c-purTexDis: color-mix(in srgb, var(--tint-purple) 45%, var(--tint-bg));
+  --c-purTexAccPri: var(--tint-purple);
+  --c-purTexInvPri: var(--tint-bg);
+  --c-purTexInvSec: color-mix(in srgb, var(--tint-bg) 70%, var(--tint-purple));
+  --c-purIcoPri: color-mix(in srgb, var(--tint-purple) 45%, var(--tint-text));
+  --c-purIcoSec: var(--tint-purple);
+  --c-purIcoTer: color-mix(in srgb, var(--tint-purple) 70%, var(--tint-bg));
+  --c-purIcoDis: color-mix(in srgb, var(--tint-purple) 45%, var(--tint-bg));
+  --c-purIcoAccPri: var(--tint-purple);
+  --c-purIcoInvPri: var(--tint-bg);
+  --c-purIcoInvSec: color-mix(in srgb, var(--tint-bg) 70%, var(--tint-purple));
+  --c-purBorPri: color-mix(in srgb, var(--tint-purple) 30%, var(--tint-bg));
+  --c-purBorSec: color-mix(in srgb, var(--tint-purple) 20%, var(--tint-bg));
+  --c-purBorInvPri: color-mix(in srgb, var(--tint-purple) 60%, var(--tint-bg));
+  --c-purBorAccPri: var(--tint-purple);
+  --c-purBorStr: color-mix(in srgb, var(--tint-purple) 45%, var(--tint-bg));
+  --c-purBacPri: color-mix(in srgb, var(--tint-purple) 8%, var(--tint-bg));
+  --c-purBacSec: color-mix(in srgb, var(--tint-purple) 20%, var(--tint-bg));
+  --c-purBacTer: color-mix(in srgb, var(--tint-purple) 35%, var(--tint-bg));
+  --c-purBacEle: color-mix(in srgb, var(--tint-purple) 14%, var(--tint-bg));
+  --c-purBacAccPri: var(--tint-purple);
+  --c-purBacAccSec: color-mix(in srgb, var(--tint-purple) 80%, var(--tint-bg));
+  --c-purBacInt: color-mix(in srgb, var(--tint-purple) 12%, var(--tint-bg));
+  --ca-purTexDisTra: color-mix(in srgb, var(--tint-purple) 40%, transparent);
+  --ca-purBorPriTra: color-mix(in srgb, var(--tint-purple) 25%, transparent);
+  --ca-purBorSecTra: color-mix(in srgb, var(--tint-purple) 15%, transparent);
+  --ca-purBorStrTra: color-mix(in srgb, var(--tint-purple) 45%, transparent);
+  --ca-purBacPriTra: color-mix(in srgb, var(--tint-purple) 6%, transparent);
+  --ca-purBacSecTra: color-mix(in srgb, var(--tint-purple) 18%, transparent);
+  --ca-purBacTerTra: color-mix(in srgb, var(--tint-purple) 35%, transparent);
+  --ca-purBacIntTra: color-mix(in srgb, var(--tint-purple) 10%, transparent);
+}
+
+/* ---------- Tokens: pink ---------- */
+html[data-tint],
+html[data-tint] .notion-light-theme,
+html[data-tint] .notion-dark-theme {
+  --c-pinTexPri: color-mix(in srgb, var(--tint-pink) 45%, var(--tint-text));
+  --c-pinTexSec: var(--tint-pink);
+  --c-pinTexTer: color-mix(in srgb, var(--tint-pink) 70%, var(--tint-bg));
+  --c-pinTexDis: color-mix(in srgb, var(--tint-pink) 45%, var(--tint-bg));
+  --c-pinTexAccPri: var(--tint-pink);
+  --c-pinTexInvPri: var(--tint-bg);
+  --c-pinTexInvSec: color-mix(in srgb, var(--tint-bg) 70%, var(--tint-pink));
+  --c-pinIcoPri: color-mix(in srgb, var(--tint-pink) 45%, var(--tint-text));
+  --c-pinIcoSec: var(--tint-pink);
+  --c-pinIcoTer: color-mix(in srgb, var(--tint-pink) 70%, var(--tint-bg));
+  --c-pinIcoDis: color-mix(in srgb, var(--tint-pink) 45%, var(--tint-bg));
+  --c-pinIcoAccPri: var(--tint-pink);
+  --c-pinIcoInvPri: var(--tint-bg);
+  --c-pinIcoInvSec: color-mix(in srgb, var(--tint-bg) 70%, var(--tint-pink));
+  --c-pinBorPri: color-mix(in srgb, var(--tint-pink) 30%, var(--tint-bg));
+  --c-pinBorSec: color-mix(in srgb, var(--tint-pink) 20%, var(--tint-bg));
+  --c-pinBorInvPri: color-mix(in srgb, var(--tint-pink) 60%, var(--tint-bg));
+  --c-pinBorAccPri: var(--tint-pink);
+  --c-pinBorStr: color-mix(in srgb, var(--tint-pink) 45%, var(--tint-bg));
+  --c-pinBacPri: color-mix(in srgb, var(--tint-pink) 8%, var(--tint-bg));
+  --c-pinBacSec: color-mix(in srgb, var(--tint-pink) 20%, var(--tint-bg));
+  --c-pinBacTer: color-mix(in srgb, var(--tint-pink) 35%, var(--tint-bg));
+  --c-pinBacEle: color-mix(in srgb, var(--tint-pink) 14%, var(--tint-bg));
+  --c-pinBacAccPri: var(--tint-pink);
+  --c-pinBacAccSec: color-mix(in srgb, var(--tint-pink) 80%, var(--tint-bg));
+  --c-pinBacInt: color-mix(in srgb, var(--tint-pink) 12%, var(--tint-bg));
+  --ca-pinTexDisTra: color-mix(in srgb, var(--tint-pink) 40%, transparent);
+  --ca-pinBorPriTra: color-mix(in srgb, var(--tint-pink) 25%, transparent);
+  --ca-pinBorSecTra: color-mix(in srgb, var(--tint-pink) 15%, transparent);
+  --ca-pinBorStrTra: color-mix(in srgb, var(--tint-pink) 45%, transparent);
+  --ca-pinBacPriTra: color-mix(in srgb, var(--tint-pink) 6%, transparent);
+  --ca-pinBacSecTra: color-mix(in srgb, var(--tint-pink) 18%, transparent);
+  --ca-pinBacTerTra: color-mix(in srgb, var(--tint-pink) 35%, transparent);
+  --ca-pinBacIntTra: color-mix(in srgb, var(--tint-pink) 10%, transparent);
+}
+
+/* ---------- Tokens: red ---------- */
+html[data-tint],
+html[data-tint] .notion-light-theme,
+html[data-tint] .notion-dark-theme {
+  --c-redTexPri: color-mix(in srgb, var(--tint-red) 45%, var(--tint-text));
+  --c-redTexSec: var(--tint-red);
+  --c-redTexTer: color-mix(in srgb, var(--tint-red) 70%, var(--tint-bg));
+  --c-redTexDis: color-mix(in srgb, var(--tint-red) 45%, var(--tint-bg));
+  --c-redTexAccPri: var(--tint-red);
+  --c-redTexInvPri: var(--tint-bg);
+  --c-redTexInvSec: color-mix(in srgb, var(--tint-bg) 70%, var(--tint-red));
+  --c-redIcoPri: color-mix(in srgb, var(--tint-red) 45%, var(--tint-text));
+  --c-redIcoSec: var(--tint-red);
+  --c-redIcoTer: color-mix(in srgb, var(--tint-red) 70%, var(--tint-bg));
+  --c-redIcoDis: color-mix(in srgb, var(--tint-red) 45%, var(--tint-bg));
+  --c-redIcoAccPri: var(--tint-red);
+  --c-redIcoInvPri: var(--tint-bg);
+  --c-redIcoInvSec: color-mix(in srgb, var(--tint-bg) 70%, var(--tint-red));
+  --c-redBorPri: color-mix(in srgb, var(--tint-red) 30%, var(--tint-bg));
+  --c-redBorSec: color-mix(in srgb, var(--tint-red) 20%, var(--tint-bg));
+  --c-redBorInvPri: color-mix(in srgb, var(--tint-red) 60%, var(--tint-bg));
+  --c-redBorAccPri: var(--tint-red);
+  --c-redBorStr: color-mix(in srgb, var(--tint-red) 45%, var(--tint-bg));
+  --c-redBacPri: color-mix(in srgb, var(--tint-red) 8%, var(--tint-bg));
+  --c-redBacSec: color-mix(in srgb, var(--tint-red) 20%, var(--tint-bg));
+  --c-redBacTer: color-mix(in srgb, var(--tint-red) 35%, var(--tint-bg));
+  --c-redBacEle: color-mix(in srgb, var(--tint-red) 14%, var(--tint-bg));
+  --c-redBacAccPri: var(--tint-red);
+  --c-redBacAccSec: color-mix(in srgb, var(--tint-red) 80%, var(--tint-bg));
+  --c-redBacInt: color-mix(in srgb, var(--tint-red) 12%, var(--tint-bg));
+  --ca-redTexDisTra: color-mix(in srgb, var(--tint-red) 40%, transparent);
+  --ca-redBorPriTra: color-mix(in srgb, var(--tint-red) 25%, transparent);
+  --ca-redBorSecTra: color-mix(in srgb, var(--tint-red) 15%, transparent);
+  --ca-redBorStrTra: color-mix(in srgb, var(--tint-red) 45%, transparent);
+  --ca-redBacPriTra: color-mix(in srgb, var(--tint-red) 6%, transparent);
+  --ca-redBacSecTra: color-mix(in srgb, var(--tint-red) 18%, transparent);
+  --ca-redBacTerTra: color-mix(in srgb, var(--tint-red) 35%, transparent);
+  --ca-redBacIntTra: color-mix(in srgb, var(--tint-red) 10%, transparent);
+}
+
+/* ---------- Tokens: accent ---------- */
+html[data-tint],
+html[data-tint] .notion-light-theme,
+html[data-tint] .notion-dark-theme {
+  --c-bluBacAccPri: var(--tint-accent);
+  --c-bluBorAccPri: var(--tint-accent);
+  --c-bluIcoAccPri: var(--tint-accent);
+  --c-bluTexAccPri: var(--tint-accent);
+  --c-bluButHovBac: color-mix(in srgb, var(--tint-accent) 88%, var(--tint-text));
+  --c-bluButPreBac: color-mix(in srgb, var(--tint-accent) 76%, var(--tint-text));
+}
+
+/* ---------- Tokens: secondary surfaces ---------- */
+html[data-tint],
+html[data-tint] .notion-light-theme,
+html[data-tint] .notion-dark-theme {
+  --c-tabFroFilDivCol: var(--tint-border);
+  --c-tabFroSelDivCol: var(--tint-accent);
+  --c-beiBanBac: var(--tint-sidebar);
+  --c-darBanBac: var(--tint-sidebar);
+  --c-keyDonBarBac: var(--tint-sidebar);
+  --c-keyActBarBac: var(--tint-sidebar);
+  --c-hovMarDisBac: var(--tint-sidebar);
+  --c-selMarDisBac: var(--tint-bg);
+  --c-butGroBac: var(--tint-sidebar);
+  --c-homScrButBacBas: var(--tint-sidebar);
+  --c-sitBuiBac: var(--tint-bg);
+  --c-sitPagPreWinChrBar: var(--tint-sidebar);
+  --c-UIUseAvaIdlOut: var(--tint-border);
+
+  --ca-tokInpMenIteBac: color-mix(in srgb, var(--tint-text) 4%, transparent);
+  --ca-homCarCovPhoBas: color-mix(in srgb, var(--tint-text) 4%, transparent);
+  --ca-homCarBacPre: color-mix(in srgb, var(--tint-text) 8%, transparent);
+  --ca-homCarTemCarBacPre: color-mix(in srgb, var(--tint-text) 8%, transparent);
+  --ca-equTemPlaBac: color-mix(in srgb, var(--tint-accent) 14%, transparent);
+  --cl-calIteHovBac: color-mix(in srgb, var(--tint-text) 8%, transparent);
+  --cl-homEmpStaPreJoiButBac: color-mix(in srgb, var(--tint-text) 4%, transparent);
+  --cl-homEmpStaPreCalInd: color-mix(in srgb, var(--tint-text) 8%, transparent);
+  --cl-homScrButBacPre: color-mix(in srgb, var(--tint-text) 8%, transparent);
+  --cl-perHomBacPho: color-mix(in srgb, var(--tint-text) 4%, transparent);
+  --cl-sitInsSte: color-mix(in srgb, var(--tint-text) 8%, transparent);
+  --cl-susUIUseAvaBac: color-mix(in srgb, var(--tint-text) 8%, transparent);
+  --cl-pilBacWhi: color-mix(in srgb, var(--tint-text) 4%, transparent);
+  --cl-pilOutWhi: color-mix(in srgb, var(--tint-text) 8%, transparent);
+  --cl-pilSelBacWhi: color-mix(in srgb, var(--tint-text) 8%, transparent);
+}
+
+/* ---------- Tokens: menu edges, shadows and focus rings ---------- */
+/* Notion draws menu edges with shadows tuned for its own grays, which vanish on
+ * a themed background, so each one gets a theme-colored 1px ring. */
+html[data-tint],
+html[data-tint] .notion-light-theme,
+html[data-tint] .notion-dark-theme {
+  --tint-ring: 0 0 0 1px var(--tint-border);
+  --tint-shadow: color-mix(in srgb, #000 22%, transparent);
+
+  --c-shaOutSm: var(--tint-ring), 0 2px 4px var(--tint-shadow);
+  --c-shaOutMd: var(--tint-ring), 0 4px 12px var(--tint-shadow);
+  --c-shaOutLg: var(--tint-ring), 0 14px 28px var(--tint-shadow);
+  --c-shaOutDif: var(--tint-ring), 0 12px 32px var(--tint-shadow);
+  --c-shaOutScr: var(--tint-ring), 0 24px 48px var(--tint-shadow);
+  --c-shaMDPriOut: var(--tint-ring), 0 14px 28px var(--tint-shadow);
+  --c-shaMDThiOut: 0 0 0 2px var(--tint-border), 0 14px 28px var(--tint-shadow);
+  --c-shaSMThiOut: 0 0 0 2px var(--tint-border), 0 4px 12px var(--tint-shadow);
+
+  --c-focSha: inset 0 0 0 1px var(--tint-accent), 0 0 0 2px color-mix(in srgb, var(--tint-accent) 35%, transparent);
+  --c-inpBluFocRin: inset 0 0 0 1px var(--tint-accent), 0 0 0 1px var(--tint-accent);
+  --c-butBluFocRin: 0 0 0 2px var(--tint-bg), 0 0 0 4px var(--tint-accent);
+}
+
+/* ---------- Page ---------- */
+html[data-tint],
+html[data-tint] body,
+html[data-tint] .notion-app-inner,
+html[data-tint] .notion-frame {
+  background: var(--tint-bg) !important;
+}
+
+html[data-tint] {
+  scrollbar-color: var(--tint-border) transparent;
+}
+
+/* ---------- Sidebar ---------- */
+html[data-tint] .notion-sidebar {
+  background: var(--tint-sidebar) !important;
+}
+
+/* ---------- Text selection ---------- */
+html[data-tint] ::selection {
+  background: color-mix(in srgb, var(--tint-accent) 35%, transparent) !important;
+}
+
+/* ---------- Code block syntax (hard-coded in Notion's CSS) ---------- */
+html[data-tint] .token.comment,
+html[data-tint] .token.prolog,
+html[data-tint] .token.doctype,
+html[data-tint] .token.cdata {
+  color: var(--tint-text-muted) !important;
+}
+
+html[data-tint] .token.keyword,
+html[data-tint] .token.atrule,
+html[data-tint] .token.selector {
+  color: var(--tint-purple) !important;
+}
+
+html[data-tint] .token.string,
+html[data-tint] .token.char,
+html[data-tint] .token.attr-value,
+html[data-tint] .token.inserted {
+  color: var(--tint-green) !important;
+}
+
+html[data-tint] .token.number,
+html[data-tint] .token.boolean,
+html[data-tint] .token.constant,
+html[data-tint] .token.symbol {
+  color: var(--tint-orange) !important;
+}
+
+html[data-tint] .token.function,
+html[data-tint] .token.class-name,
+html[data-tint] .token.builtin {
+  color: var(--tint-blue) !important;
+}
+
+html[data-tint] .token.tag,
+html[data-tint] .token.deleted,
+html[data-tint] .token.regex,
+html[data-tint] .token.important {
+  color: var(--tint-red) !important;
+}
+
+html[data-tint] .token.property,
+html[data-tint] .token.attr-name,
+html[data-tint] .token.variable {
+  color: var(--tint-teal) !important;
+}
+
+html[data-tint] .token.operator,
+html[data-tint] .token.punctuation,
+html[data-tint] .token.entity,
+html[data-tint] .token.url {
+  color: var(--tint-text) !important;
+  background: none !important;
+}
+
+/* ---------- Date picker (hard-coded in Notion's CSS) ---------- */
+html[data-tint] .rdtPicker td.rdtOld,
+html[data-tint] .rdtPicker td.rdtNew {
+  color: var(--tint-text-muted) !important;
+}
+
+html[data-tint] .rdtPicker td:hover,
+html[data-tint] .rdtPicker th:hover {
+  background: var(--tint-hover) !important;
+}
+
+/* ---------- Startup spinner (hard-coded in Notion's CSS) ---------- */
+html[data-tint] #initial-loading-spinner .spinner__circle {
+  border-color: var(--tint-border) !important;
+}
+
+html[data-tint] #initial-loading-spinner .spinner__arc {
+  border-top-color: var(--tint-text) !important;
+}
+
+/* ---------- Login page (near-black inline color, not a token) ---------- */
+html[data-tint] main[style*="color: rgb(4, 4, 4)"] {
+  color: var(--tint-text) !important;
+}
+
+html[data-tint] main[style*="color: rgb(4, 4, 4)"] input::placeholder {
+  color: var(--tint-text-muted) !important;
+}

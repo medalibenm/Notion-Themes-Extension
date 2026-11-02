@@ -1,0 +1,27 @@
+{
+  "id": "rose-pine",
+  "name": "Rosé Pine",
+  "base": "dark",
+  "tokens": {
+    "bg": "#191724",
+    "sidebar": "#1F1D2E",
+    "text": "#E0DEF4",
+    "textMuted": "#908CAA",
+    "border": "#403D52",
+    "accent": "#C4A7E7",
+    "codeBg": "#1F1D2E",
+    "hover": "#26233A",
+    "colors": {
+      "gray": "#908CAA",
+      "brown": "#C9A48F",
+      "orange": "#F0A77E",
+      "yellow": "#F6C177",
+      "green": "#A3D9A5",
+      "teal": "#9CCFD8",
+      "blue": "#7FB5D6",
+      "purple": "#C4A7E7",
+      "pink": "#EBBCBA",
+      "red": "#EB6F92"
+    }
+  }
+}

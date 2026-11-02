@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "Tint for Notion",
+  "version": "1.0.0",
+  "description": "Color themes for Notion on the web. Unofficial: not affiliated with or endorsed by Notion.",
+  "permissions": ["storage"],
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+  "action": {
+    "default_title": "Tint for Notion",
+    "default_popup": "src/popup/popup.html"
+  },
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://app.notion.com/*",
+        "https://www.notion.so/*",
+        "https://*.notion.site/*"
+      ],
+      "css": ["src/base.css"],
+      "js": ["src/content.js"],
+      "run_at": "document_start"
+    }
+  ]
+}
